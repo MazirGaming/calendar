@@ -29,17 +29,17 @@ const calendarOptions = {
   weekends: true,
   dayCellDidMount: function(cell) {
     cell.el.querySelectorAll('.fc-daygrid-day-number').forEach((el) => {
-      // el.innerText = parseInt(el.innerText); //convert date
+      // el.innerText = parseInt(el.innerText); //convert
       el.style.fontSize = '18px';
       el.style.fontWeight = 'bold';
     });
   },
-  eventClick: function(clickInfo) {
-    handleEventClick(clickInfo)
-  },
   select: function(info) {
+ 
     handleDateSelect(info)
+    
   },
+ 
 }
 
 let currentEvents = []
@@ -49,15 +49,16 @@ const handleWeekendsToggle = () => {
 }
 
 const handleDateSelect = (selectInfo) => {
+  var clickedDate = selectInfo.startStr;
+  var td = document.querySelector('td[data-date="' + clickedDate + '"]');
+  console.log(td.style.backgroundColor)
+  if (td.style.backgroundColor == 'orange') {
+    td.style.backgroundColor = '';
+  } else {
+    td.style.backgroundColor = 'orange';
+  }
   let calendarApi = selectInfo.view.calendar
   calendarApi.unselect() // clear date selection
-  calendarApi.addEvent({
-    id: createEventId(),
-    title: 'Done',
-    start: selectInfo.startStr,
-    end: selectInfo.endStr,
-    allDay: selectInfo.allDay,
-  })
 }
 
 const handleEventClick = (clickInfo) => {
